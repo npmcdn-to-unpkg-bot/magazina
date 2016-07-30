@@ -1,0 +1,79 @@
+{% extends 'main/base.html' %}
+{% load staticfiles %}
+
+{% block style %}
+    <link rel="stylesheet" href="{% static 'main/css/calendar.css' %}">
+{% endblock %}
+
+{% block script %}
+    <script defer src="{% static 'main/js/calendar.js' %}"></script>
+{% endblock %}
+
+{% block content %}
+    <div id="wrapper">
+        <table id="header">
+            <tr>
+                <td style="width: 25%">
+                    ЛОГОТИП
+                    <a title="" class="frc" href="/">Справка</a>
+                    <a title="" class="frc" href="/">Контакты</a>
+                    <a title="" class="frc" href="/">Обратиться</a>
+                </td>
+                <td>
+                    <input id="search" type="text" placeholder="НАЧНИТЕ ПОИСК ОТСЮДА..." autofocus>
+                    <div class="search--field-helper">
+                        <i>Например: </i><a href="">Грибы</a>
+                    </div>
+                </td>
+                <td style="width: 25%">
+                    Корзина
+                </td>
+            </tr>
+        </table>
+<table id="month_name">
+<tr>
+    {% for name in month_abbr %}
+        <td month="{{ forloop.counter }}" year="2016">{{ name }}</td>
+    {% endfor %}
+</tr>
+</table>
+
+    <table class="day-abbr">
+        <tr>
+        {% for day in day_abbr %}
+            <td>{{ day }}</td>
+        {% endfor %}
+        </tr>
+    </table>
+<div class="rot-wrapper">
+
+    <div id="calendar">
+        {% for month in year %}
+            <table class="month" month="1">
+                {% for line in month %}
+                    <tr>
+                    {% for day in line %}
+                        <td>{% if day != 0 %}{{ day }}{% endif %}</td>
+                    {% endfor %}
+                    </tr>
+                {% endfor %}
+            </table>
+        {% endfor %}
+    </div>
+
+    <table class="calendar-fog">
+        <tr>
+            <td id="prev" onclick="nextPrevMonth('prev')">&nbsp;</td>
+            <td>
+
+            </td>
+            <td id="next" onclick="nextPrevMonth('next')">&nbsp;</td>
+        </tr>
+    </table>
+</div>
+
+
+        <h1>Онлайн магазин доставки продуктов питания на дом</h1>
+    </div>
+
+{% endblock %}

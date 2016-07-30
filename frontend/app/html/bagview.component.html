@@ -1,0 +1,16 @@
+<div id="cart-viewer" (mouseover)="showHideScrollbar($event)" (mouseleave)="showHideScrollbar($event)">
+  <div class="cart-viewer--header">Корзина</div>
+  <div id="about" class="nano">
+    <div class="nano-content">
+      <table>
+        <tr *ngFor="let product of products">
+          <td>{{ product.id }}</td>
+          <td>{{ product.name }}</td>
+          <td (click)="delete(product)">del</td>
+        </tr>
+      </table>
+    </div>
+  </div>
+  <div class="cart-viewer--total">ИТОГО: 00,00</div>
+  <a [routerLink]="['/checkout']" class="cart-viewer--checkout">Оформить заказ</a>
+</div>

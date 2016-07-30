@@ -1,0 +1,124 @@
+
+
+.month {
+    display: inline-block;
+    transform: scale(0.8);
+    transition: transform 0.5s, color 0.5s;
+    height: 100%;
+    color: #CCC;
+    letter-spacing: normal;
+}
+
+.month td {
+    width: 60px;
+    height: 60px;
+    text-align: center;
+    vertical-align: middle;
+}
+
+.month.active {
+    transform: scale(1);
+    color: #666;
+}
+
+
+.day-abbr {
+    height: 26px;
+    width: 420px;
+    margin: 0 auto;
+    color: #CCC;
+    text-align: center;
+    font: 0.9em verdana;
+    cursor: default;
+}
+
+
+#calendar {
+    overflow: hidden;
+    @overflow-x: scroll;
+    white-space:nowrap;
+    z-index: 1;
+    position: relative;
+    height: 100%;
+    letter-spacing: -1em;
+}
+
+#calendar::before,
+#calendar::after{
+    display: inline-block;
+    content: "";
+    height: 100%;
+    width: 50%;
+}
+
+
+.rot-wrapper {
+    position: relative;
+    height: 360px;
+}
+
+
+#month_name li {
+    display: inline-block;
+}
+
+
+.calendar-fog {
+    position: absolute;
+    left: 0px;
+    top: 0px;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(to right, #f8f8f8, #EEE, #f8f8f8);
+}
+
+.calendar-fog td:nth-child(1){
+    background: transparent linear-gradient(to left, transparent, #FFF);
+    cursor: pointer;
+    position: relative;
+    z-index: 1;
+}
+
+.calendar-fog td:nth-child(2){
+    width: 420px;
+    background: #EEE;
+    box-shadow: 0 0 6px #CCC inset;
+    outline: 1px solid #CCC;
+}
+
+.calendar-fog td:nth-child(3){
+    background: transparent linear-gradient(to right, transparent, #FFF);
+    cursor: pointer;
+    position: relative;
+    z-index: 1;
+}
+
+#month_name {
+    width: 100%;
+    margin-bottom: 20px;
+}
+
+#month_name td {
+    text-align: center;
+    text-transform: uppercase;
+    cursor: pointer;
+    padding: 8px 0;
+    @transition: border 0.5s;
+}
+#month_name td:nth-child(1)  {border-top: 2px solid #2196F3}
+#month_name td:nth-child(2)  {border-top: 2px solid #2196F3}
+#month_name td:nth-child(3)  {border-top: 2px solid #8BC34A}
+#month_name td:nth-child(4)  {border-top: 2px solid #8BC34A}
+#month_name td:nth-child(5)  {border-top: 2px solid #8BC34A}
+#month_name td:nth-child(6)  {border-top: 2px solid #FF9800}
+#month_name td:nth-child(7)  {border-top: 2px solid #FF9800}
+#month_name td:nth-child(8)  {border-top: 2px solid #FF9800}
+#month_name td:nth-child(9)  {border-top: 2px solid #FFEB3B}
+#month_name td:nth-child(10) {border-top: 2px solid #FFEB3B}
+#month_name td:nth-child(11) {border-top: 2px solid #FFEB3B}
+#month_name td:nth-child(12) {border-top: 2px solid #2196F3}
+
+#month_name .active {
+    border-bottom: 2px solid #f44336;
+    color: #f44336;
+}

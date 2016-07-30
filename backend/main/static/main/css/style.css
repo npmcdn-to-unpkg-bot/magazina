@@ -1,0 +1,68 @@
+html, body {height: 100%}
+body {
+    font: normal 14px Arial;
+}
+a {
+    text-decoration: none;
+}
+
+#wrapper {
+
+    position: absolute;
+    right: 300px;
+    left: 300px;
+    padding: 0 20px;
+}
+
+#header {
+    margin: 20px auto;
+}
+
+#search {
+    border: 2px solid #CCC;
+    padding: 8px;
+    width: 100%;
+    box-sizing: border-box;
+    font-size: 1em;
+}
+
+#search::-moz-placeholder {
+    font-size: 0.9em;
+}
+
+.search--field-helper {
+    font-size: 0.9em;
+}
+
+.search--field-helper i {
+    font-style: italic;
+    color: #666;
+}
+
+.search--field-helper a {
+    font-weight: bold;
+    color: rgb(42, 93, 176);
+}
+
+
+
+.frc {
+    text-transform: uppercase;
+    color: #666;
+    display: inline-block;
+    margin: 0 0.6em;
+}
+
+.product {
+    display: inline-block;
+    margin-bottom: 16px;
+}
+
+.product:hover {
+    box-shadow: 0px 0px 4px rgb(102, 102, 102);
+    border-radius: 3px;
+    cursor: pointer;
+}
+
+
+

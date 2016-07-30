@@ -1,0 +1,80 @@
+{% extends 'main/base.html' %}
+{% block content %}
+    <div id="wrapper">
+
+<my-app>Loading...</my-app>
+
+
+
+
+
+    <table id="header">
+            <tr>
+                <td style="width: 25%">
+                    ЛОГОТИП
+                    <a title="/" class="frc" href="/">Справка</a>
+                    <a title="" class="frc" href="/">Контакты</a>
+                    <a title="" class="frc" href="/">Обратиться</a>
+                </td>
+                <td>
+                    <input id="search" type="text" placeholder="НАЧНИТЕ ПОИСК ОТСЮДА..." autofocus>
+                    <div class="search--field-helper">
+                        <i>Например: </i><a href="">Грибы</a>
+                    </div>
+                </td>
+                <td style="width: 25%">
+                    пользователь
+                    Корзина
+                </td>
+            </tr>
+        </table>
+
+
+
+        <div>
+            {% for file in files %}
+                <a href="/sku{{ forloop.counter }}" class="product" title="">
+                    <img style="display: block" src="/media/{{ file }}" alt="">
+                    <label style="display: block; padding: 8px 0; text-align: center">257,00<br>Р/шт.</label>
+                </a>
+            {% endfor %}
+        </div>
+
+
+
+
+
+
+
+
+
+</div>
+
+
+  <div id="cart-viewer">
+    <div class="cart-viewer--header">Корзина</div>
+    <div id="about" class="nano">
+      <div class="nano-content">
+        <table>
+          <tr>
+            <td></td>
+            <td>2</td>
+            <td>x</td>
+            <td>50,00</td>
+            <td>=</td>
+            <td>100,00</td>
+          </tr>
+        </table>
+        Lorem ipsum dolor sit amet, consectetur adipisicing elit. Et explicabo accusantium nobis dolor amet vel veniam architecto suscipit? Officiis maxime earum aliquam provident reprehenderit asperiores necessitatibus ad quae dignissimos atque?
+        Lorem ipsum dolor sit amet, consectetur adipisicing elit. Consequuntur facere fugiat, incidunt iste neque placeat rem voluptates. Aspernatur, assumenda culpa dolorum facere mollitia nihil, nostrum odit, quasi sed temporibus veritatis.
+        Lorem ipsum dolor sit amet, consectetur adipisicing elit. Fugit impedit at debitis odio ullam cupiditate voluptatum quas cumque dolorum repellendus possimus temporibus accusantium eius modi eos ipsa officiis eveniet magnam!Lorem ipsum dolor sit amet, consectetur adipisicing elit. Et explicabo accusantium nobis dolor amet vel veniam architecto suscipit? Officiis maxime earum aliquam provident reprehenderit asperiores necessitatibus ad quae dignissimos atque?
+        Lorem ipsum dolor sit amet, consectetur adipisicing elit. Consequuntur facere fugiat, incidunt iste neque placeat rem voluptates. Aspernatur, assumenda culpa dolorum facere mollitia nihil, nostrum odit, quasi sed temporibus veritatis.
+        Lorem ipsum dolor sit amet, consectetur adipisicing elit. Fugit impedit at debitis odio ullam cupiditate voluptatum quas cumque dolorum repellendus possimus temporibus accusantium eius modi eos ipsa officiis eveniet magnam!Lorem ipsum dolor sit amet, consectetur adipisicing elit. Et explicabo accusantium nobis dolor amet vel veniam architecto suscipit? Officiis maxime earum aliquam provident reprehenderit asperiores necessitatibus ad quae dignissimos atque?
+        Lorem ipsum dolor sit amet, consectetur adipisicing elit. Consequuntur facere fugiat, incidunt iste neque placeat rem voluptates. Aspernatur, assumenda culpa dolorum facere mollitia nihil, nostrum odit, quasi sed temporibus veritatis.
+        Lorem ipsum dolor sit amet, consectetur adipisicing elit. Fugit impedit at debitis odio ullam cupiditate voluptatum quas cumque dolorum repellendus possimus temporibus accusantium eius modi eos ipsa officiis eveniet magnam!
+      </div>
+    </div>
+    <div class="cart-viewer--total">ИТОГО: 00,00</div>
+    <a class="cart-viewer--checkout" href="/checkout">Оформить заказ</a>
+  </div>
+{% endblock %}

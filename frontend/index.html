@@ -1,0 +1,85 @@
+{% load staticfiles %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <base href="/">
+  <meta charset="UTF-8">
+  <title>Title</title>
+  <link rel="stylesheet" href="{% static 'main/css/reset.css' %}">
+  <link rel="stylesheet" href="{% static 'main/css/style.css' %}">
+  <link rel="stylesheet" href="{% static 'main/css/nanoscroller.css' %}">
+  {% block style %}{% endblock %}
+  <script defer src="{% static 'main/js/jquery-3.1.0.min.js' %}"></script>
+  <script defer src="{% static 'main/js/jquery.nanoscroller.min.js' %}"></script>
+  <script defer src="{% static 'main/js/main2.js' %}"></script>
+
+  <!-- 1. Load libraries -->
+  <!-- Polyfill(s) for older browsers -->
+  <script src="/static/node_modules/core-js/client/shim.min.js"></script>
+  <script src="/static/node_modules/zone.js/dist/zone.js"></script>
+  <script src="/static/node_modules/reflect-metadata/Reflect.js"></script>
+  <script src="/static/node_modules/systemjs/dist/system.src.js"></script>
+  <!-- 2. Configure SystemJS -->
+  <script src="{% static '/static/systemjs.config.js' %}"></script>
+  <script>
+    System.import('app').catch(function(err){ console.error(err); });
+  </script>
+
+  {% block script %}{% endblock %}
+</head>
+<body>
+<div id="wrapper">
+
+<my-app>Loading...</my-app>
+
+
+
+
+
+    <table id="header">
+            <tr>
+                <td style="width: 25%">
+                    ЛОГОТИП
+                    <a title="/" class="frc" href="/">Справка</a>
+                    <a title="" class="frc" href="/">Контакты</a>
+                    <a title="" class="frc" href="/">Обратиться</a>
+                </td>
+                <td>
+                    <input id="search" type="text" placeholder="НАЧНИТЕ ПОИСК ОТСЮДА..." autofocus>
+                    <div class="search--field-helper">
+                        <i>Например: </i><a href="">Грибы</a>
+                    </div>
+                </td>
+                <td style="width: 25%">
+                    пользователь
+                    Корзина
+                </td>
+            </tr>
+        </table>
+
+
+
+        <div>
+            {% for file in files %}
+                <a href="/sku{{ forloop.counter }}" class="product" title="">
+                    <img style="display: block" src="/media/{{ file }}" alt="">
+                    <label style="display: block; padding: 8px 0; text-align: center">257,00<br>Р/шт.</label>
+                </a>
+            {% endfor %}
+        </div>
+
+
+
+
+
+
+
+
+
+</div>
+
+
+
+</body>
+</html>
