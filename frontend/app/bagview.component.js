@@ -10,30 +10,36 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 var core_1 = require('@angular/core');
 var router_1 = require('@angular/router');
-var bagviewComponent = (function () {
-    function bagviewComponent() {
+var BagviewComponent = (function () {
+    function BagviewComponent() {
     }
-    bagviewComponent.prototype.ngOnInit = function () {
+    BagviewComponent.prototype.ngOnInit = function () {
         this.products = [
             { id: 1, name: '1' },
             { id: 1, name: '1' },
         ];
         $(".nano").nanoScroller();
     };
-    bagviewComponent.prototype.delete = function (product) {
+    BagviewComponent.prototype.delete = function (product) {
         this.products = this.products.filter(function (h) { return h !== product; });
     };
-    bagviewComponent.prototype.showHideScrollbar = function (event) {
-        if (event.type == 'mouseover') {
+    BagviewComponent.prototype.showHideScrollbar = function (event) {
+        var wrapper = document.getElementById("wrapper");
+        if (event.type == 'mouseover' && scrollbarVisible('html')) {
             document.body.style.overflow = "hidden";
+            wrapper.style.right = (wrapper.offsetLeft + getScrollbarWidth()) + "px";
             event.currentTarget.style.right = getScrollbarWidth() + "px";
         }
         else {
             document.body.style.overflow = "inherit";
+            wrapper.style.right = wrapper.offsetLeft + "px";
             event.target.style.right = 0;
         }
     };
-    bagviewComponent = __decorate([
+    BagviewComponent.prototype.s = function () {
+        alert(3);
+    };
+    BagviewComponent = __decorate([
         core_1.Component({
             selector: 'bagview',
             templateUrl: 'static/app/html/bagview.component.html',
@@ -41,8 +47,8 @@ var bagviewComponent = (function () {
             directives: [router_1.ROUTER_DIRECTIVES],
         }), 
         __metadata('design:paramtypes', [])
-    ], bagviewComponent);
-    return bagviewComponent;
+    ], BagviewComponent);
+    return BagviewComponent;
 }());
-exports.bagviewComponent = bagviewComponent;
+exports.BagviewComponent = BagviewComponent;
 //# sourceMappingURL=bagview.component.js.map

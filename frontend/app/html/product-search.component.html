@@ -1,0 +1,8 @@
+ <div>
+
+    <a *ngFor="let product of products" [routerLink]="['/sku', product.id]" class="product" title="">
+        <img style="display: block" src="/media/{{product.photo}}" alt="">
+        <label style="display: block; padding: 8px 0; text-align: center">{{product.price}}<br>Р/шт.</label>
+    </a>
+
+    </div>

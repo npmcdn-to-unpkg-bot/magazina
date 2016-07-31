@@ -22,7 +22,7 @@ var AppComponent = (function () {
             selector: 'my-app',
             templateUrl: 'static/app/html/app.component.html',
             styleUrls: ['static/app/app.component.css'],
-            directives: [router_1.ROUTER_DIRECTIVES, bagview_component_1.bagviewComponent],
+            directives: [router_1.ROUTER_DIRECTIVES, bagview_component_1.BagviewComponent],
             providers: [hero_service_1.HeroService]
         }), 
         __metadata('design:paramtypes', [])

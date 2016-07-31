@@ -1,1 +1,5 @@
 Django==1.9.8
+django-custom-user==0.6
+django-filter==0.13.0
+djangorestframework==3.4.1
+Markdown==2.6.6

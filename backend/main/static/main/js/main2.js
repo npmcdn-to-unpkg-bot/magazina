@@ -20,6 +20,10 @@ function onPushState(callback) {
 		});
 
 
+function scrollbarVisible(element) {
+    var element = document.getElementsByTagName(element)[0];
+    return element.scrollHeight > element.clientHeight;
+}
 
 function getScrollbarWidth() {
     var outer = document.createElement("div");

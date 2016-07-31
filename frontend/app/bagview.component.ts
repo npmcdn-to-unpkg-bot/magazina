@@ -8,7 +8,7 @@ import { ROUTER_DIRECTIVES } from '@angular/router';
     directives: [ROUTER_DIRECTIVES],
 })
 
-export class bagviewComponent implements OnInit {
+export class BagviewComponent implements OnInit {
     products: Object[];
 
     ngOnInit() {
@@ -26,13 +26,21 @@ export class bagviewComponent implements OnInit {
     }
 
     showHideScrollbar(event) {
-        if (event.type == 'mouseover') {
+        var wrapper = document.getElementById("wrapper");
+
+        if (event.type == 'mouseover' && scrollbarVisible('html')) {
             document.body.style.overflow = "hidden";
+            wrapper.style.right = (wrapper.offsetLeft + getScrollbarWidth()) + "px";
             event.currentTarget.style.right = getScrollbarWidth() + "px";
         }
         else {
             document.body.style.overflow = "inherit";
+            wrapper.style.right = wrapper.offsetLeft + "px";
             event.target.style.right = 0;
         }
+    }
+
+    s(){
+        alert(3)
     }
 }
