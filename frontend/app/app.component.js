@@ -15,13 +15,12 @@ var bagview_component_1 = require('./bagview.component');
 require('./rxjs-extensions');
 var AppComponent = (function () {
     function AppComponent() {
-        this.title = 'Tour of Heroes';
     }
     AppComponent = __decorate([
         core_1.Component({
             selector: 'my-app',
             templateUrl: 'static/app/html/app.component.html',
-            styleUrls: ['static/app/app.component.css'],
+            styleUrls: ['static/app/css/app.component.css'],
             directives: [router_1.ROUTER_DIRECTIVES, bagview_component_1.BagviewComponent],
             providers: [hero_service_1.HeroService]
         }), 

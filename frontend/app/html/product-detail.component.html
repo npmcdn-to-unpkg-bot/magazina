@@ -1,7 +1,13 @@
 <div *ngIf="product">
-
-
-    <button (click)="addToCart(product.id)">{{product.name}}</button>
+  {{product.name}}
+  <div *ngIf="full">
+    <button (click)="reduce()">-</button>
+    {{product.count}}
+    <button (click)="increase()">+</button>
+  </div>
+  <div *ngIf="!full">
+    <button (click)="addToCart()">Добавить в корзину</button>
+  </div>
 </div>
 
 <bagview></bagview>

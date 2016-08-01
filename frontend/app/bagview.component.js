@@ -10,18 +10,47 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 var core_1 = require('@angular/core');
 var router_1 = require('@angular/router');
+var router_2 = require('@angular/router');
 var BagviewComponent = (function () {
-    function BagviewComponent() {
+    function BagviewComponent(router) {
+        this.router = router;
+        this.empty = true;
     }
     BagviewComponent.prototype.ngOnInit = function () {
-        this.products = [
-            { id: 1, name: '1' },
-            { id: 1, name: '1' },
-        ];
         $(".nano").nanoScroller();
+        this.products = [];
+    };
+    BagviewComponent.prototype.add = function (newProduct) {
+        if (this.products.find(function (product) { return product.id === newProduct.id; })) {
+            // Товар присутствует в корзине
+            return true;
+        }
+        newProduct.count = 1;
+        this.products.push(newProduct);
+        this.empty = false;
+        this.recalculate();
     };
     BagviewComponent.prototype.delete = function (product) {
         this.products = this.products.filter(function (h) { return h !== product; });
+        if (this.products.length == 0)
+            this.empty = true;
+        this.recalculate();
+    };
+    BagviewComponent.prototype.recalculate = function () {
+        for (var _i = 0, _a = this.products; _i < _a.length; _i++) {
+            var product = _a[_i];
+        }
+    };
+    BagviewComponent.prototype.reduce = function (product) {
+        product.count -= 1;
+        if (product.count === 0)
+            this.delete(product);
+    };
+    BagviewComponent.prototype.increase = function (product) {
+        product.count += 1;
+    };
+    BagviewComponent.prototype.gotoDetail = function (product) {
+        this.router.navigate(['/sku', product.id]);
     };
     BagviewComponent.prototype.showHideScrollbar = function (event) {
         var wrapper = document.getElementById("wrapper");
@@ -36,9 +65,6 @@ var BagviewComponent = (function () {
             event.target.style.right = 0;
         }
     };
-    BagviewComponent.prototype.s = function () {
-        alert(3);
-    };
     BagviewComponent = __decorate([
         core_1.Component({
             selector: 'bagview',
@@ -46,7 +72,7 @@ var BagviewComponent = (function () {
             styleUrls: ['static/app/css/bagview.component.css'],
             directives: [router_1.ROUTER_DIRECTIVES],
         }), 
-        __metadata('design:paramtypes', [])
+        __metadata('design:paramtypes', [router_2.Router])
     ], BagviewComponent);
     return BagviewComponent;
 }());

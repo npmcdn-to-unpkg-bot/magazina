@@ -20,21 +20,30 @@ var ProductDetailComponent = (function () {
     ProductDetailComponent.prototype.ngOnInit = function () {
         var _this = this;
         this.route.params.subscribe(function (params) {
-            if (params['id'] !== undefined) {
-                var id = +params['id'];
-                _this.searchService.getProduct(id).then(function (product) { return _this.product = product; });
-                console.log(_this.bagview);
-            }
-            else {
-            }
+            if (params['id'] === undefined)
+                return true;
+            var id = +params['id'];
+            _this.searchService.getProduct(id).then(function (product) { return _this.product = product; });
+            console.log(_this.product);
         });
+        this.full = false;
     };
     ProductDetailComponent.prototype.ngAfterViewInit = function () {
         // Use _alert
-        console.log(this.bagview);
+        //console.log(this.bagview)
     };
-    ProductDetailComponent.prototype.addToCart = function (id) {
-        this.bagview.products.push({ id: 1, name: '13' });
+    ProductDetailComponent.prototype.addToCart = function () {
+        this.bagview.add(this.product);
+        this.full = true;
+    };
+    ProductDetailComponent.prototype.reduce = function () {
+        if (this.product.count == 1) {
+            this.full = false;
+        }
+        this.bagview.reduce(this.product);
+    };
+    ProductDetailComponent.prototype.increase = function () {
+        this.bagview.increase(this.product);
     };
     __decorate([
         core_1.ViewChild(bagview_component_1.BagviewComponent), 

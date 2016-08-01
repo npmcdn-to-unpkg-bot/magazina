@@ -7,11 +7,10 @@ import './rxjs-extensions';
 @Component({
   selector: 'my-app',
   templateUrl: 'static/app/html/app.component.html',
-  styleUrls: ['static/app/app.component.css'],
+  styleUrls: ['static/app/css/app.component.css'],
   directives: [ROUTER_DIRECTIVES, BagviewComponent],
   providers: [HeroService]
 })
 
 export class AppComponent {
-  title = 'Tour of Heroes';
 }

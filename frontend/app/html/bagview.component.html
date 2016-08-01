@@ -1,11 +1,16 @@
-<div id="cart-viewer" (mouseover)="showHideScrollbar($event)" (mouseleave)="showHideScrollbar($event)">
+<div *ngIf="!empty" id="cart-viewer" (mouseover)="showHideScrollbar($event)" (mouseleave)="showHideScrollbar($event)">
   <div class="cart-viewer--header">Корзина</div>
   <div id="about" class="nano">
     <div class="nano-content">
       <table>
-        <tr *ngFor="let product of products">
-          <td>{{ product.id }}</td>
-          <td>{{ product.name }}</td>
+        <tr *ngFor="let product of products; let i=index" (click)="gotoDetail(product)">
+          <td>{{i + 1}}</td>
+          <td><img height="50px" src="{{product.photo}}" alt=""></td>
+          <td>{{ product.count }}</td>
+          <td>*</td>
+          <td>{{ product.price }}</td>
+          <td>=</td>
+          <td>{{ product.count * product.price }}</td>
           <td (click)="delete(product)">del</td>
         </tr>
       </table>

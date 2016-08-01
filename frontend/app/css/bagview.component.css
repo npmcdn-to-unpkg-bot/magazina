@@ -11,9 +11,26 @@
 }
 
 
+#cart-viewer table {
+    width: 100%;
+}
 
+#cart-viewer td {
+    vertical-align: middle;
 
+}
 
+#cart-viewer tr {
+    cursor: pointer;
+}
+
+#cart-viewer tr:hover {
+    background-color: #EEE;
+}
+
+#cart-viewer tr:active {
+    background-color: #CCC;
+}
 
 .cart-viewer--header {
     background-color: #FF9800;

@@ -58,5 +58,7 @@ def product_detail(request, id):
     s = {
         'id': 1,
         'name': "Курица",
+        'photo':  '/media/3117296H.jpg',
+        'price': 200
     }
     return JsonResponse(s)
