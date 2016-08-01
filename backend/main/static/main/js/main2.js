@@ -1,9 +1,9 @@
 
-
+/*
 $(window).bind("popstate", function(e) {
     //var link = window.location.hash.replace("#", "/");
-    alert(3)
-});
+
+});*/
 
 function onPushState(callback) {
     (function(pushState) {

@@ -20,6 +20,5 @@ export class ProductSearchComponent implements OnInit {
 
   ngOnInit() {
     this.searchService.getResults().then(products => this.products = products);
-
   }
 }

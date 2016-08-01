@@ -25,10 +25,23 @@ export class ProductDetailComponent implements OnInit, AfterViewInit {
         this.route.params.subscribe(params => {
             if (params['id'] === undefined)  return true;
             let id = +params['id'];
-            this.searchService.getProduct(id).then(product => this.product = product);
-            console.log(this.product)
+
+            this.searchService.getProduct(id).then(product => {
+                this.product = product;
+                let foundProduct = this.bagview.get(product.id);
+                if (foundProduct) {
+                    this.product.count = foundProduct.count;
+                    this.full = true;
+                }
+                else {
+                    this.full = false;
+                }
+            });
+            console.log()
+
+
         });
-        this.full = false;
+
     }
 
     ngAfterViewInit() {
@@ -37,18 +50,25 @@ export class ProductDetailComponent implements OnInit, AfterViewInit {
     }
 
     addToCart() {
+        this.product.count = 1;
         this.bagview.add(this.product);
+
         this.full = true;
     }
 
-    reduce() {
-        if (this.product.count == 1) {
-            this.full = false;
-        }
-        this.bagview.reduce(this.product);
+    increase() {
+        console.log(this.product)
+        this.bagview.increase(this.product);
+        console.log(this.product)
+        this.product.count += 1;
+        console.log(this.product)
     }
 
-    increase() {
-        this.bagview.increase(this.product);
+    decrease() {
+        if (this.product.count == 1) this.full = false;
+
+        console.log(this.product)
+        this.bagview.decrease(this.product);
+        this.product.count -= 1;
     }
 }

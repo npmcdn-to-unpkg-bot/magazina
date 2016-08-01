@@ -13,18 +13,23 @@ var router_1 = require('@angular/router');
 var hero_service_1 = require('./hero.service');
 var bagview_component_1 = require('./bagview.component');
 require('./rxjs-extensions');
+var LocalStorageEmitter_1 = require("angular2-localstorage/LocalStorageEmitter");
 var AppComponent = (function () {
-    function AppComponent() {
+    function AppComponent(storageService) {
+        console.log(localStorage);
     }
+    AppComponent.prototype.goBack = function () {
+        window.history.back();
+    };
     AppComponent = __decorate([
         core_1.Component({
             selector: 'my-app',
             templateUrl: 'static/app/html/app.component.html',
             styleUrls: ['static/app/css/app.component.css'],
             directives: [router_1.ROUTER_DIRECTIVES, bagview_component_1.BagviewComponent],
-            providers: [hero_service_1.HeroService]
+            providers: [hero_service_1.HeroService, LocalStorageEmitter_1.LocalStorageService]
         }), 
-        __metadata('design:paramtypes', [])
+        __metadata('design:paramtypes', [LocalStorageEmitter_1.LocalStorageService])
     ], AppComponent);
     return AppComponent;
 }());

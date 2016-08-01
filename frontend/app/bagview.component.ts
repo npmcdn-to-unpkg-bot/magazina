@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ROUTER_DIRECTIVES } from '@angular/router';
 import { Router } from '@angular/router';
 import { Product } from './product';
+import {LocalStorage, SessionStorage} from "angular2-localstorage/WebStorage";
 
 @Component({
     selector: 'bagview',
@@ -11,7 +12,7 @@ import { Product } from './product';
 })
 
 export class BagviewComponent implements OnInit {
-    private products: Product[];
+    @LocalStorage() private products: Product[];
     private total: number;
     private empty: boolean = true;
 
@@ -19,16 +20,14 @@ export class BagviewComponent implements OnInit {
 
     ngOnInit() {
         $(".nano").nanoScroller();
-        this.products = [];
+        if (this.products.length > 0) this.empty = false;
     }
 
-    add(newProduct: Product) {
-        if (this.products.find(product => product.id === newProduct.id)) {
-            // Товар присутствует в корзине
-            return true;
-        }
-        newProduct.count = 1;
-        this.products.push(newProduct);
+    add(product: Product) {
+        // Товар присутствует в корзине
+        if (this.contains(product.id)) return true;
+
+        this.products.push(product);
         this.empty = false;
         this.recalculate();
     }
@@ -45,16 +44,25 @@ export class BagviewComponent implements OnInit {
         }
     }
 
-    reduce(product: Product) {
-        product.count -= 1;
-        if (product.count === 0) this.delete(product);
+    get(id: number) {
+        return this.products.find(product => product.id === id)
     }
-    
+
+    contains(id: number) {
+        return this.products.find(product => product.id === id) ? true : false;
+    }
+
     increase(product: Product) {
-        product.count += 1;
+        this.get(product.id).count += 1;
+    }
+
+    decrease(product: Product) {
+        let p = this.get(product.id);
+        p.count -= 1;
+        if (p.count === 0) this.delete(p);
     }
     
-    gotoDetail(product) {
+    gotoDetail(product: Product) {
         this.router.navigate(['/sku', product.id]);
     }
 

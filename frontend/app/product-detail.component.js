@@ -23,27 +23,42 @@ var ProductDetailComponent = (function () {
             if (params['id'] === undefined)
                 return true;
             var id = +params['id'];
-            _this.searchService.getProduct(id).then(function (product) { return _this.product = product; });
-            console.log(_this.product);
+            _this.searchService.getProduct(id).then(function (product) {
+                _this.product = product;
+                var foundProduct = _this.bagview.get(product.id);
+                if (foundProduct) {
+                    _this.product.count = foundProduct.count;
+                    _this.full = true;
+                }
+                else {
+                    _this.full = false;
+                }
+            });
+            console.log();
         });
-        this.full = false;
     };
     ProductDetailComponent.prototype.ngAfterViewInit = function () {
         // Use _alert
         //console.log(this.bagview)
     };
     ProductDetailComponent.prototype.addToCart = function () {
+        this.product.count = 1;
         this.bagview.add(this.product);
         this.full = true;
     };
-    ProductDetailComponent.prototype.reduce = function () {
-        if (this.product.count == 1) {
-            this.full = false;
-        }
-        this.bagview.reduce(this.product);
-    };
     ProductDetailComponent.prototype.increase = function () {
+        console.log(this.product);
         this.bagview.increase(this.product);
+        console.log(this.product);
+        this.product.count += 1;
+        console.log(this.product);
+    };
+    ProductDetailComponent.prototype.decrease = function () {
+        if (this.product.count == 1)
+            this.full = false;
+        console.log(this.product);
+        this.bagview.decrease(this.product);
+        this.product.count -= 1;
     };
     __decorate([
         core_1.ViewChild(bagview_component_1.BagviewComponent), 
