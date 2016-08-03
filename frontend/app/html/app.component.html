@@ -3,10 +3,40 @@
   <a [routerLink]="['/dashboard']" routerLinkActive="active">Dashboard</a>
   <a [routerLink]="['/heroes']" routerLinkActive="active">Heroes</a>
 </nav>-->
+<div id="wrapper">
+
+<div id="header">
+
+    <div>
+        <a title="Главная"    class="frc" href="/">ЛОГОТИП</a>
+        <a title="Справка"    class="header-btn wiki" [routerLink]="['/wiki']"></a>
+        <a title="Обратиться" class="header-btn chat" href="/"></a>
+    </div>
+
+    <div>
+        <input id="search" type="text" placeholder="НАЧНИТЕ ПОИСК ОТСЮДА..." autofocus>
+        <div class="search--field-helper">
+            <i>Например: </i><a href="">Грибы</a>
+        </div>
+    </div>
+    <div>
+        <a title="Главная"    class="header-btn account" href="/"></a>
+        <a title="Главная"    class="header-btn cart" href="/"></a>
+    </div>
+
+</div>
 
 
-<div (click)="goBack()">ss</div>
 
-<bagview></bagview>
+
+<div id="goBack" (click)="goBack()"></div>
+
+
 
 <router-outlet></router-outlet>
+
+
+</div>
+
+
+<bagview></bagview>

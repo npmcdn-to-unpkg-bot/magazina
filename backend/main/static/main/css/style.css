@@ -7,16 +7,13 @@ a {
 }
 
 #wrapper {
-
     position: absolute;
     right: 300px;
     left: 300px;
     padding: 0 20px;
 }
 
-#header {
-    margin: 20px auto;
-}
+
 
 #search {
     border: 2px solid #CCC;
@@ -45,13 +42,6 @@ a {
 }
 
 
-
-.frc {
-    text-transform: uppercase;
-    color: #666;
-    display: inline-block;
-    margin: 0 0.6em;
-}
 
 .product {
     display: inline-block;
