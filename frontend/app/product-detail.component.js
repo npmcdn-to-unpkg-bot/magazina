@@ -12,10 +12,12 @@ var core_1 = require('@angular/core');
 var router_1 = require('@angular/router');
 var search_service_1 = require('./search.service');
 var bagview_component_1 = require('./bagview.component');
+var shoppingcart_service_1 = require('./shoppingcart.service');
 var ProductDetailComponent = (function () {
-    function ProductDetailComponent(route, searchService) {
+    function ProductDetailComponent(route, searchService, shoppingcartService) {
         this.route = route;
         this.searchService = searchService;
+        this.shoppingcartService = shoppingcartService;
     }
     ProductDetailComponent.prototype.ngOnInit = function () {
         var _this = this;
@@ -24,17 +26,16 @@ var ProductDetailComponent = (function () {
                 return true;
             var id = +params['id'];
             _this.searchService.getProduct(id).then(function (product) {
-                _this.product = product;
-                var foundProduct = _this.bagview.get(product.id);
-                if (foundProduct) {
-                    _this.product.count = foundProduct.count;
+                if (_this.shoppingcartService.contains(product.id)) {
+                    _this.product = _this.shoppingcartService.get(product.id);
+                    _this.product.loaded = product;
                     _this.full = true;
                 }
                 else {
+                    _this.product = product;
                     _this.full = false;
                 }
             });
-            console.log();
         });
     };
     ProductDetailComponent.prototype.ngAfterViewInit = function () {
@@ -42,23 +43,27 @@ var ProductDetailComponent = (function () {
         //console.log(this.bagview)
     };
     ProductDetailComponent.prototype.addToCart = function () {
-        this.product.count = 1;
-        this.bagview.add(this.product);
+        if (this.shoppingcartService.isEmpty())
+            this.bagview.show();
+        this.shoppingcartService.add(this.product);
+        this.bagview.recalculate();
         this.full = true;
     };
+    ProductDetailComponent.prototype.changeCount = function () {
+    };
     ProductDetailComponent.prototype.increase = function () {
-        console.log(this.product);
-        this.bagview.increase(this.product);
-        console.log(this.product);
         this.product.count += 1;
-        console.log(this.product);
+        this.bagview.recalculate();
     };
     ProductDetailComponent.prototype.decrease = function () {
-        if (this.product.count == 1)
-            this.full = false;
-        console.log(this.product);
-        this.bagview.decrease(this.product);
         this.product.count -= 1;
+        this.bagview.recalculate();
+        if (this.product.count == 0) {
+            this.shoppingcartService.remove(this.product.id);
+            this.full = false;
+        }
+        if (this.shoppingcartService.isEmpty())
+            this.bagview.hide();
     };
     __decorate([
         core_1.ViewChild(bagview_component_1.BagviewComponent), 
@@ -72,10 +77,11 @@ var ProductDetailComponent = (function () {
         core_1.Component({
             selector: 'my-product-detail',
             templateUrl: 'static/app/html/product-detail.component.html',
+            styleUrls: ['static/app/css/product-detail.component.css'],
             providers: [search_service_1.SearchService],
             directives: [bagview_component_1.BagviewComponent]
         }), 
-        __metadata('design:paramtypes', [router_1.ActivatedRoute, search_service_1.SearchService])
+        __metadata('design:paramtypes', [router_1.ActivatedRoute, search_service_1.SearchService, shoppingcart_service_1.ShoppingCartService])
     ], ProductDetailComponent);
     return ProductDetailComponent;
 }());

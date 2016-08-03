@@ -36,11 +36,11 @@ def calendar_page(request):
 
 def search(request):
     s = [
-     {'id': 1, 'photo': '3038655H.jpg', 'price': 20}, {'id': 1, 'photo': '3046522H.jpg', 'price': 20},
-     {'id': 1, 'photo': '3046525H.jpg', 'price': 20}, {'id': 1, 'photo': '3049276H.jpg', 'price': 20},
-     {'id': 1, 'photo': '3056125H.jpg', 'price': 20}, {'id': 1, 'photo': '3056882H.jpg', 'price': 20},
-     {'id': 1, 'photo': '3059484H.jpg', 'price': 20}, {'id': 1, 'photo': '3059485H.jpg', 'price': 20},
-     {'id': 1, 'photo': '3059770H.jpg', 'price': 20}, {'id': 1, 'photo': '3066949H.jpg', 'price': 20},
+     {'id': 1, 'photo': '3038655H.jpg', 'price': 20}, {'id': 2, 'photo': '3046522H.jpg', 'price': 20},
+     {'id': 3, 'photo': '3046525H.jpg', 'price': 20}, {'id': 4, 'photo': '3049276H.jpg', 'price': 20},
+     {'id': 5, 'photo': '3056125H.jpg', 'price': 20}, {'id': 6, 'photo': '3056882H.jpg', 'price': 20},
+     {'id': 7, 'photo': '3059484H.jpg', 'price': 20}, {'id': 8, 'photo': '3059485H.jpg', 'price': 20},
+     {'id': 9, 'photo': '3059770H.jpg', 'price': 20}, {'id': 10, 'photo': '3066949H.jpg', 'price': 20},
      {'id': 1, 'photo': '3072333H.jpg', 'price': 20}, {'id': 1, 'photo': '3078820H.jpg', 'price': 20},
      {'id': 1, 'photo': '3117296H.jpg', 'price': 20}, {'id': 1, 'photo': '3117300H.jpg', 'price': 20},
      {'id': 1, 'photo': '3125111H.jpg', 'price': 20}, {'id': 1, 'photo': '3130430H.jpg', 'price': 20},
@@ -56,7 +56,7 @@ def search(request):
 
 def product_detail(request, id):
     s = {
-        'id': 1,
+        'id': id,
         'name': "Курица",
         'photo':  '/media/3117296H.jpg',
         'price': 200

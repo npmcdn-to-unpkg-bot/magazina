@@ -2,68 +2,58 @@ import { Component, OnInit } from '@angular/core';
 import { ROUTER_DIRECTIVES } from '@angular/router';
 import { Router } from '@angular/router';
 import { Product } from './product';
-import {LocalStorage, SessionStorage} from "angular2-localstorage/WebStorage";
+import 'rxjs/add/operator/toPromise';
+import { ShoppingCartService } from './shoppingcart.service';
 
 @Component({
     selector: 'bagview',
     templateUrl: 'static/app/html/bagview.component.html',
     styleUrls: ['static/app/css/bagview.component.css'],
+    providers: [],
     directives: [ROUTER_DIRECTIVES],
 })
 
 export class BagviewComponent implements OnInit {
-    @LocalStorage() private products: Product[];
-    private total: number;
-    private empty: boolean = true;
+    private products: Product[];
+    private shoppingCartIsNotEmpty: boolean;
+    private itsTotal: number;
 
-    constructor( private router: Router ) {}
+    constructor(
+        private router: Router,
+        private shoppingcartService: ShoppingCartService) {
+    }
 
     ngOnInit() {
         $(".nano").nanoScroller();
-        if (this.products.length > 0) this.empty = false;
-    }
-
-    add(product: Product) {
-        // Товар присутствует в корзине
-        if (this.contains(product.id)) return true;
-
-        this.products.push(product);
-        this.empty = false;
+        this.products = this.shoppingcartService.getProducts();
+        this.shoppingCartIsNotEmpty = !this.shoppingcartService.isEmpty();
         this.recalculate();
     }
 
-    delete(product: Product) {
-        this.products = this.products.filter(h => h !== product);
-        if (this.products.length == 0) this.empty = true;
-        this.recalculate();
+    show() {
+        this.shoppingCartIsNotEmpty = true;
+    }
+
+    hide() {
+        this.shoppingCartIsNotEmpty = false;
+    }
+    
+    remove(product: Product, event: any) {
+        event.stopPropagation();
+        this.shoppingcartService.remove(product.id);
+        this.products = this.shoppingcartService.getProducts();
+        if (this.shoppingcartService.isEmpty()) {
+            this.shoppingCartIsNotEmpty = false;
+        }
+
+    }
+
+    gotoDetail(product: Product) {
+        this.router.navigate(['/sku', product.id]);
     }
 
     recalculate() {
-        for (let product of this.products) {
-            //console.log(product);
-        }
-    }
-
-    get(id: number) {
-        return this.products.find(product => product.id === id)
-    }
-
-    contains(id: number) {
-        return this.products.find(product => product.id === id) ? true : false;
-    }
-
-    increase(product: Product) {
-        this.get(product.id).count += 1;
-    }
-
-    decrease(product: Product) {
-        let p = this.get(product.id);
-        p.count -= 1;
-        if (p.count === 0) this.delete(p);
-    }
-    
-    gotoDetail(product: Product) {
-        this.router.navigate(['/sku', product.id]);
+        this.itsTotal = this.shoppingcartService.getTotal();
     }
 
     showHideScrollbar(event) {
@@ -77,7 +67,7 @@ export class BagviewComponent implements OnInit {
         else {
             document.body.style.overflow = "inherit";
             wrapper.style.right = wrapper.offsetLeft + "px";
-            event.target.style.right = 0;
+            event.target.style.right = "8px";
         }
     }
 }

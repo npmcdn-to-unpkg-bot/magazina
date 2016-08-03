@@ -1,8 +1,8 @@
 <div *ngIf="product">
   {{product.name}}
-  <div *ngIf="full">
+  <div *ngIf="full" class="regulator">
     <button (click)="decrease()">-</button>
-    {{product.count}}
+    <input (keyup)="changeCount()" type="text" value="{{product.count}}">
     <button (click)="increase()">+</button>
   </div>
   <div *ngIf="!full">

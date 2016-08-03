@@ -3,7 +3,7 @@ import { ROUTER_DIRECTIVES } from '@angular/router';
 import { HeroService } from './hero.service';
 import { BagviewComponent } from './bagview.component';
 import './rxjs-extensions';
-import {LocalStorageService} from "angular2-localstorage/LocalStorageEmitter";
+
 
 
 @Component({
@@ -11,15 +11,13 @@ import {LocalStorageService} from "angular2-localstorage/LocalStorageEmitter";
   templateUrl: 'static/app/html/app.component.html',
   styleUrls: ['static/app/css/app.component.css'],
   directives: [ROUTER_DIRECTIVES, BagviewComponent],
-  providers: [HeroService, LocalStorageService]
+  providers: [HeroService]
 })
 
 export class AppComponent {
 
 
-    constructor(storageService: LocalStorageService) {
-        console.log(localStorage)
-    }
+    constructor() {}
 
     goBack() {
         window.history.back();

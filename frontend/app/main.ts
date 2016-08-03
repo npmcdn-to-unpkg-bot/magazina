@@ -10,10 +10,16 @@ import { HTTP_PROVIDERS } from '@angular/http';
 
 import { AppComponent }         from './app.component';
 import { appRouterProviders }   from './app.routes';
+import { ShoppingCartService } from './shoppingcart.service';
+import {LocalStorageService, LocalStorageSubscriber} from 'angular2-localstorage/LocalStorageEmitter';
 
-bootstrap(AppComponent, [
+var appPromise = bootstrap(AppComponent, [
     appRouterProviders,
     HTTP_PROVIDERS,
+    ShoppingCartService,
+    LocalStorageService,
     // { provide: XHRBackend, useClass: InMemoryBackendService }, // in-mem server
     // { provide: SEED_DATA, useClass: InMemoryDataService }      // in-mem server data
 ]);
+
+LocalStorageSubscriber(appPromise);

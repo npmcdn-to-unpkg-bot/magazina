@@ -3,10 +3,12 @@ import { ActivatedRoute } from '@angular/router';
 import { SearchService } from './search.service';
 import { BagviewComponent } from './bagview.component'
 import { Product } from './product';
+import { ShoppingCartService } from './shoppingcart.service';
 
 @Component({
     selector: 'my-product-detail',
     templateUrl: 'static/app/html/product-detail.component.html',
+    styleUrls: ['static/app/css/product-detail.component.css'],
     providers: [SearchService],
     directives: [BagviewComponent]
 })
@@ -18,7 +20,8 @@ export class ProductDetailComponent implements OnInit, AfterViewInit {
     
     constructor(
         private route: ActivatedRoute,
-        private searchService: SearchService) {
+        private searchService: SearchService,
+        private shoppingcartService: ShoppingCartService) {
     }
 
     ngOnInit() {
@@ -27,19 +30,18 @@ export class ProductDetailComponent implements OnInit, AfterViewInit {
             let id = +params['id'];
 
             this.searchService.getProduct(id).then(product => {
-                this.product = product;
-                let foundProduct = this.bagview.get(product.id);
-                if (foundProduct) {
-                    this.product.count = foundProduct.count;
+
+                if (this.shoppingcartService.contains(product.id)) {
+                    this.product = this.shoppingcartService.get(product.id);
+                    this.product.loaded = product;
                     this.full = true;
                 }
                 else {
+                    this.product = product;
                     this.full = false;
+
                 }
             });
-            console.log()
-
-
         });
 
     }
@@ -50,25 +52,33 @@ export class ProductDetailComponent implements OnInit, AfterViewInit {
     }
 
     addToCart() {
-        this.product.count = 1;
-        this.bagview.add(this.product);
-
+        if (this.shoppingcartService.isEmpty())
+            this.bagview.show();
+        
+        this.shoppingcartService.add(this.product);
+        this.bagview.recalculate();
         this.full = true;
     }
 
+    changeCount(){
+
+    }
+
     increase() {
-        console.log(this.product)
-        this.bagview.increase(this.product);
-        console.log(this.product)
         this.product.count += 1;
-        console.log(this.product)
+        this.bagview.recalculate();
     }
 
     decrease() {
-        if (this.product.count == 1) this.full = false;
-
-        console.log(this.product)
-        this.bagview.decrease(this.product);
         this.product.count -= 1;
+        this.bagview.recalculate();
+
+        if (this.product.count == 0) {
+            this.shoppingcartService.remove(this.product.id);
+            this.full = false;
+        }
+        
+        if (this.shoppingcartService.isEmpty())
+            this.bagview.hide();
     }
 }

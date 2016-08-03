@@ -11,53 +11,38 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 var core_1 = require('@angular/core');
 var router_1 = require('@angular/router');
 var router_2 = require('@angular/router');
-var WebStorage_1 = require("angular2-localstorage/WebStorage");
+require('rxjs/add/operator/toPromise');
+var shoppingcart_service_1 = require('./shoppingcart.service');
 var BagviewComponent = (function () {
-    function BagviewComponent(router) {
+    function BagviewComponent(router, shoppingcartService) {
         this.router = router;
-        this.empty = true;
+        this.shoppingcartService = shoppingcartService;
     }
     BagviewComponent.prototype.ngOnInit = function () {
         $(".nano").nanoScroller();
-        if (this.products.length > 0)
-            this.empty = false;
-    };
-    BagviewComponent.prototype.add = function (product) {
-        // Товар присутствует в корзине
-        if (this.contains(product.id))
-            return true;
-        this.products.push(product);
-        this.empty = false;
+        this.products = this.shoppingcartService.getProducts();
+        this.shoppingCartIsNotEmpty = !this.shoppingcartService.isEmpty();
         this.recalculate();
     };
-    BagviewComponent.prototype.delete = function (product) {
-        this.products = this.products.filter(function (h) { return h !== product; });
-        if (this.products.length == 0)
-            this.empty = true;
-        this.recalculate();
+    BagviewComponent.prototype.show = function () {
+        this.shoppingCartIsNotEmpty = true;
     };
-    BagviewComponent.prototype.recalculate = function () {
-        for (var _i = 0, _a = this.products; _i < _a.length; _i++) {
-            var product = _a[_i];
+    BagviewComponent.prototype.hide = function () {
+        this.shoppingCartIsNotEmpty = false;
+    };
+    BagviewComponent.prototype.remove = function (product, event) {
+        event.stopPropagation();
+        this.shoppingcartService.remove(product.id);
+        this.products = this.shoppingcartService.getProducts();
+        if (this.shoppingcartService.isEmpty()) {
+            this.shoppingCartIsNotEmpty = false;
         }
-    };
-    BagviewComponent.prototype.get = function (id) {
-        return this.products.find(function (product) { return product.id === id; });
-    };
-    BagviewComponent.prototype.contains = function (id) {
-        return this.products.find(function (product) { return product.id === id; }) ? true : false;
-    };
-    BagviewComponent.prototype.increase = function (product) {
-        this.get(product.id).count += 1;
-    };
-    BagviewComponent.prototype.decrease = function (product) {
-        var p = this.get(product.id);
-        p.count -= 1;
-        if (p.count === 0)
-            this.delete(p);
     };
     BagviewComponent.prototype.gotoDetail = function (product) {
         this.router.navigate(['/sku', product.id]);
+    };
+    BagviewComponent.prototype.recalculate = function () {
+        this.itsTotal = this.shoppingcartService.getTotal();
     };
     BagviewComponent.prototype.showHideScrollbar = function (event) {
         var wrapper = document.getElementById("wrapper");
@@ -69,21 +54,18 @@ var BagviewComponent = (function () {
         else {
             document.body.style.overflow = "inherit";
             wrapper.style.right = wrapper.offsetLeft + "px";
-            event.target.style.right = 0;
+            event.target.style.right = "8px";
         }
     };
-    __decorate([
-        WebStorage_1.LocalStorage(), 
-        __metadata('design:type', Array)
-    ], BagviewComponent.prototype, "products", void 0);
     BagviewComponent = __decorate([
         core_1.Component({
             selector: 'bagview',
             templateUrl: 'static/app/html/bagview.component.html',
             styleUrls: ['static/app/css/bagview.component.css'],
+            providers: [],
             directives: [router_1.ROUTER_DIRECTIVES],
         }), 
-        __metadata('design:paramtypes', [router_2.Router])
+        __metadata('design:paramtypes', [router_2.Router, shoppingcart_service_1.ShoppingCartService])
     ], BagviewComponent);
     return BagviewComponent;
 }());
