@@ -3,28 +3,28 @@
   <a [routerLink]="['/dashboard']" routerLinkActive="active">Dashboard</a>
   <a [routerLink]="['/heroes']" routerLinkActive="active">Heroes</a>
 </nav>-->
+<div id="header">
+  <a title="Главная"    class="a" href="/"></a>
+  <a title="Справка"    class="b wiki" [routerLink]="['/wiki']"></a>
+  <a title="Обратиться" class="b chat" href="/"></a>
+
+  <div class="c">
+    <input id="search" #searchInputElement type="text" autofocus>
+    <div class="search--field-helper">
+        <i>Например: </i><a href="">Грибы</a>
+    </div>
+    <span (click)="startSearchLabel(searchInputElement)" [class.hidden]="itsStartSearchLabel">НАЧНИТЕ ПОИСК ОТСЮДА...</span>
+  </div>
+
+  <a title="Главная"    class="b account" href="/"></a>
+  <a title="Главная"    class="b cart" href="/"></a>
+  <div class="a"></div>
+</div>
+
+
 <div id="wrapper">
 
-<div id="header">
 
-    <div>
-        <a title="Главная"    class="frc" href="/">ЛОГОТИП</a>
-        <a title="Справка"    class="header-btn wiki" [routerLink]="['/wiki']"></a>
-        <a title="Обратиться" class="header-btn chat" href="/"></a>
-    </div>
-
-    <div>
-        <input id="search" type="text" placeholder="НАЧНИТЕ ПОИСК ОТСЮДА..." autofocus>
-        <div class="search--field-helper">
-            <i>Например: </i><a href="">Грибы</a>
-        </div>
-    </div>
-    <div>
-        <a title="Главная"    class="header-btn account" href="/"></a>
-        <a title="Главная"    class="header-btn cart" href="/"></a>
-    </div>
-
-</div>
 
 
 

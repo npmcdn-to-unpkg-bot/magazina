@@ -15,13 +15,6 @@ a {
 
 
 
-#search {
-    border: 2px solid #CCC;
-    padding: 8px;
-    width: 100%;
-    box-sizing: border-box;
-    font-size: 1em;
-}
 
 #search::-moz-placeholder {
     font-size: 0.9em;

@@ -15,9 +15,14 @@ var bagview_component_1 = require('./bagview.component');
 require('./rxjs-extensions');
 var AppComponent = (function () {
     function AppComponent() {
+        this.itsStartSearchLabel = false;
     }
     AppComponent.prototype.goBack = function () {
         window.history.back();
+    };
+    AppComponent.prototype.startSearchLabel = function (inputElement) {
+        inputElement.focus();
+        this.itsStartSearchLabel = true;
     };
     AppComponent = __decorate([
         core_1.Component({

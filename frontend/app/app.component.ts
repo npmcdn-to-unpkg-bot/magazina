@@ -15,11 +15,16 @@ import './rxjs-extensions';
 })
 
 export class AppComponent {
-
-
+    itsStartSearchLabel: boolean = false;
+    
     constructor() {}
 
     goBack() {
         window.history.back();
+    }
+    
+    startSearchLabel(inputElement) {
+        inputElement.focus();
+        this.itsStartSearchLabel = true;
     }
 }

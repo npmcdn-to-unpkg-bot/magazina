@@ -18,8 +18,10 @@ var BagviewComponent = (function () {
         this.router = router;
         this.shoppingcartService = shoppingcartService;
     }
-    BagviewComponent.prototype.ngOnInit = function () {
+    BagviewComponent.prototype.ngAfterViewInit = function () {
         $(".nano").nanoScroller();
+    };
+    BagviewComponent.prototype.ngOnInit = function () {
         this.products = this.shoppingcartService.getProducts();
         this.shoppingCartIsNotEmpty = !this.shoppingcartService.isEmpty();
         this.recalculate();

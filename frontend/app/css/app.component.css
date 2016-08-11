@@ -1,14 +1,64 @@
 #header {
-    margin: 20px auto;
+    padding: 16px 0 8px 0;
+    margin-bottom: 24px;
     display: flex;
+    background: linear-gradient(to bottom, #EEE, #FFF);
 }
 
-.header-btn {
+#header > * {
     display: block;
+}
+
+.a {
+    flex: auto;
+}
+
+.b {
     width: 36px;
-    height: 36px;
-    margin-right: 4px;
+    height: 42px;
     background-repeat: no-repeat;
+    background-position: center;
+}
+
+.c {
+    width: 672px;
+    position: relative;
+}
+
+.c span {
+    display: block;
+    position: absolute;
+    top: 0;
+    left: 0;
+    text-align: center;
+    width: 100%;
+    padding: 13px 0;
+    transition: width 0.4s, opacity 0.4s;
+}
+
+.c span.hidden {
+    width: 228px;
+    opacity: 0;
+}
+
+.wiki, .chat {
+    margin-right: 10px;
+}
+
+.account, .cart {
+    margin-left: 10px;
+}
+
+#search {
+    border: 2px solid #4285F4;
+padding: 0 16px;
+box-sizing: border-box;
+font-size: 1em;
+height: 44px;
+@box-shadow: 0 0 2px #CCC;
+width: 100%;
+margin: auto;
+border-radius: 22px;
 }
 
 .wiki {
@@ -28,21 +78,7 @@
 }
 
 
-
-#header div:nth-child(1) {
-    display: flex;
-
-}
-
-#header div:nth-child(2) {
-    width: 100%;
-}
-
-#header div:nth-child(3) {
-    display: flex;
-
-}
-
+/*
 #goBack {
     width: 80px;
     position: fixed;
@@ -50,4 +86,4 @@
     left: 0;
     bottom: 0;
     background-color: #EEE;
-}
+}*/

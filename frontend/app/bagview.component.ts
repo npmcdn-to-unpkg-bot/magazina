@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, AfterViewInit } from '@angular/core';
 import { ROUTER_DIRECTIVES } from '@angular/router';
 import { Router } from '@angular/router';
 import { Product } from './product';
@@ -13,7 +13,7 @@ import { ShoppingCartService } from './shoppingcart.service';
     directives: [ROUTER_DIRECTIVES],
 })
 
-export class BagviewComponent implements OnInit {
+export class BagviewComponent implements OnInit, AfterViewInit {
     private products: Product[];
     private shoppingCartIsNotEmpty: boolean;
     private itsTotal: number;
@@ -23,8 +23,11 @@ export class BagviewComponent implements OnInit {
         private shoppingcartService: ShoppingCartService) {
     }
 
-    ngOnInit() {
+    ngAfterViewInit() {
         $(".nano").nanoScroller();
+    }
+
+    ngOnInit() {
         this.products = this.shoppingcartService.getProducts();
         this.shoppingCartIsNotEmpty = !this.shoppingcartService.isEmpty();
         this.recalculate();
