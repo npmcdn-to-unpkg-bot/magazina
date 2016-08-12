@@ -1,0 +1,26 @@
+.regulator {
+    display: flex;
+    width: 120px;
+    height: 30px;
+    margin: 0 auto;
+}
+
+.regulator button {
+    width: 40px;
+    height: 30px;
+}
+
+.regulator input {
+    width: 40px;
+    height: 30px;
+    text-align: center;
+}
+
+canvas {
+    /* Объеденить в спрайт */
+    cursor: url(static/img/cursor_h.gif) 4 12, auto;
+}
+
+canvas:active {
+    cursor: url(static/img/cursor_hgrab.gif) 4 12, auto;
+}

@@ -10,8 +10,7 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 var core_1 = require('@angular/core');
 var router_1 = require('@angular/router');
-var hero_service_1 = require('./hero.service');
-var bagview_component_1 = require('./bagview.component');
+var bagview_component_1 = require('./bagview/bagview.component');
 require('./rxjs-extensions');
 var AppComponent = (function () {
     function AppComponent() {
@@ -26,11 +25,12 @@ var AppComponent = (function () {
     };
     AppComponent = __decorate([
         core_1.Component({
+            moduleId: module.id,
             selector: 'my-app',
-            templateUrl: 'static/app/html/app.component.html',
-            styleUrls: ['static/app/css/app.component.css'],
+            templateUrl: 'app.component.html',
+            styleUrls: ['app.component.css'],
             directives: [router_1.ROUTER_DIRECTIVES, bagview_component_1.BagviewComponent],
-            providers: [hero_service_1.HeroService]
+            providers: []
         }), 
         __metadata('design:paramtypes', [])
     ], AppComponent);

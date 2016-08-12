@@ -59,6 +59,24 @@ def product_detail(request, id):
         'id': id,
         'name': "Курица",
         'photo':  '/media/3117296H.jpg',
-        'price': 200
+        'price': 200,
+        'snapshots': {
+            '0':  "http://127.0.0.1:8000/media/rucksack_normal_001.jpg",
+            '1':  "http://127.0.0.1:8000/media/rucksack_normal_002.jpg",
+            '2':  "http://127.0.0.1:8000/media/rucksack_normal_003.jpg",
+            '3':  "http://127.0.0.1:8000/media/rucksack_normal_004.jpg",
+            '4':  "http://127.0.0.1:8000/media/rucksack_normal_005.jpg",
+            '5':  "http://127.0.0.1:8000/media/rucksack_normal_006.jpg",
+            '6':  "http://127.0.0.1:8000/media/rucksack_normal_007.jpg",
+            '7':  "http://127.0.0.1:8000/media/rucksack_normal_008.jpg",
+            '8':  "http://127.0.0.1:8000/media/rucksack_normal_009.jpg",
+            '9':  "http://127.0.0.1:8000/media/rucksack_normal_010.jpg",
+            '10': "http://127.0.0.1:8000/media/rucksack_normal_011.jpg",
+            '11': "http://127.0.0.1:8000/media/rucksack_normal_012.jpg",
+            '12': "http://127.0.0.1:8000/media/rucksack_normal_013.jpg",
+            '13': "http://127.0.0.1:8000/media/rucksack_normal_014.jpg",
+            '14': "http://127.0.0.1:8000/media/rucksack_normal_015.jpg",
+            '15': "http://127.0.0.1:8000/media/rucksack_normal_016.jpg",
+        }
     }
     return JsonResponse(s)

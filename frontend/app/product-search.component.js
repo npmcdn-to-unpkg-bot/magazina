@@ -23,9 +23,9 @@ var ProductSearchComponent = (function () {
     };
     ProductSearchComponent = __decorate([
         core_1.Component({
+            moduleId: module.id,
             selector: 'my-product-search',
-            templateUrl: 'static/app/html/product-search.component.html',
-            //styleUrls: ['static/app/app.component.css'],
+            templateUrl: 'product-search.component.html',
             directives: [router_1.ROUTER_DIRECTIVES],
             providers: [search_service_1.SearchService]
         }), 

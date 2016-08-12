@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core'
-import { LocalStorage } from "angular2-localstorage/WebStorage";
+
 import { Product } from './product';
+import { LocalStorage } from 'angular2-localstorage/WebStorage';
 
 @Injectable()
 export class ShoppingCartService {

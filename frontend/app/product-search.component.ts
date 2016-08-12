@@ -5,9 +5,9 @@ import { BagviewComponent } from './bagview.component';
 import { SearchService } from './search.service';
 
 @Component({
+  moduleId: module.id,
   selector: 'my-product-search',
-  templateUrl: 'static/app/html/product-search.component.html',
-  //styleUrls: ['static/app/app.component.css'],
+  templateUrl: 'product-search.component.html',
   directives: [ROUTER_DIRECTIVES],
   providers: [SearchService]
 })

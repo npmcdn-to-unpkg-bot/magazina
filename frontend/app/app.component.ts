@@ -1,18 +1,19 @@
 import { Component } from '@angular/core';
 import { ROUTER_DIRECTIVES } from '@angular/router';
 import { HeroService } from './hero.service';
-import { BagviewComponent } from './bagview.component';
+import { BagviewComponent } from './bagview/bagview.component';
 import './rxjs-extensions';
 
 
-
 @Component({
+  moduleId: module.id,
   selector: 'my-app',
-  templateUrl: 'static/app/html/app.component.html',
-  styleUrls: ['static/app/css/app.component.css'],
+  templateUrl: 'app.component.html',
+  styleUrls: ['app.component.css'],
   directives: [ROUTER_DIRECTIVES, BagviewComponent],
-  providers: [HeroService]
+  providers: []
 })
+
 
 export class AppComponent {
     itsStartSearchLabel: boolean = false;
