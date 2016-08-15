@@ -1,16 +1,11 @@
-import { bootstrap }      from '@angular/platform-browser-dynamic';
-import { HTTP_PROVIDERS } from '@angular/http';
+import { platformBrowserDynamic } from '@angular/platform-browser-dynamic';
+import { AppModule } from './app.module';
 
-import { AppComponent }         from './app.component';
-import { appRouterProviders }   from './app.routes';
-import { ShoppingCartService } from './shoppingcart.service';
-import {LocalStorageService, LocalStorageSubscriber} from 'angular2-localstorage/LocalStorageEmitter';
+import { LocalStorageSubscriber } from 'angular2-localstorage/LocalStorageEmitter';
+//import {enableProdMode} from '@angular/core';
 
-var appPromise = bootstrap(AppComponent, [
-    appRouterProviders,
-    HTTP_PROVIDERS,
-    ShoppingCartService,
-    LocalStorageService,
-]);
+//enableProdMode();
+
+var appPromise = platformBrowserDynamic().bootstrapModule(AppModule);
 
 LocalStorageSubscriber(appPromise);

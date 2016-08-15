@@ -5,10 +5,10 @@
 (function(global) {
   // map tells the System loader where to look for things
   var map = {
-    'app':                        '/static/app', // 'dist',
-    '@angular':                   '/static/node_modules/@angular',
-    'rxjs':                       '/static/node_modules/rxjs',
-    'angular2-localstorage':      '/static/node_modules/angular2-localstorage'
+    'app':                        'static/app', // 'dist',
+    '@angular':                   'static/node_modules/@angular',
+    'rxjs':                       'static/node_modules/rxjs',
+    'angular2-localstorage':      'static/node_modules/angular2-localstorage'
   };
   // packages tells the System loader how to load when no filename and/or no extension
   var packages = {
