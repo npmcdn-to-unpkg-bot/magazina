@@ -1,7 +1,9 @@
 venv/
 .idea/
-static/*
+frontend/node_modules/
 __pycache__/
+static/
+
 *.py[cod]
 *$py.class
 .DS_Store

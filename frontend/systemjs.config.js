@@ -7,7 +7,6 @@
   var map = {
     'app':                        '/static/app', // 'dist',
     '@angular':                   '/static/node_modules/@angular',
-    'angular2-in-memory-web-api': '/static/node_modules/angular2-in-memory-web-api',
     'rxjs':                       '/static/node_modules/rxjs',
     'angular2-localstorage':      '/static/node_modules/angular2-localstorage'
   };
@@ -15,7 +14,6 @@
   var packages = {
     'app':                        { main: 'main.js',  defaultExtension: 'js' },
     'rxjs':                       { defaultExtension: 'js' },
-    'angular2-in-memory-web-api': { main: 'index.js', defaultExtension: 'js' },
     'angular2-localstorage':      { defaultExtension: 'js' }
   };
   var ngPackageNames = [
@@ -28,7 +26,7 @@
     'platform-browser-dynamic',
     'router',
     'router-deprecated',
-    'upgrade',
+    'upgrade'
   ];
   // Individual files (~300 requests):
   function packIndex(pkgName) {

@@ -10,7 +10,7 @@ def test(request):
 
     mypath = "../media/"
     onlyfiles = [{'price': 20, 'photo': f} for f in listdir(mypath) if isfile(join(mypath, f))]
-    print(onlyfiles)
+
 
     context = {
         "files": onlyfiles
