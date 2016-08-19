@@ -1,14 +1,16 @@
 import { Injectable } from '@angular/core'
+import { Subject }    from 'rxjs/Subject';
 
 import { Product } from './product';
 import { LocalStorage } from 'angular2-localstorage/WebStorage';
 
 @Injectable()
 export class ShoppingCartService {
-    @LocalStorage() private products: Object[] = [];
+    private products: Object[] = [];
     private itsTotal: number;
 
-    constructor() {}
+    private missionAnnouncedSource = new Subject<Object>();
+    productAdded$ = this.missionAnnouncedSource.asObservable();
     
     getProducts(){
         return this.products;
@@ -22,19 +24,17 @@ export class ShoppingCartService {
 
         product.count = 1;
         this.products.push(product);
+        this.missionAnnouncedSource.next();
+
+        console.log(this.missionAnnouncedSource);
     }
     
     remove(id: number) {
         this.products = this.products.filter(h => h.id !== id);
-        this.recalculate();
     }
 
     isEmpty(): boolean {
         return this.products.length === 0 ? true : false;
-    }
-
-    recalculate() {
-
     }
     
     get(id: number) {
@@ -44,24 +44,20 @@ export class ShoppingCartService {
     contains(id: number) {
         return this.products.find(product => product.id === id) ? true : false;
     }
-    
-    // count() {
-    //     return this.products.length;
-    // }
 
     increase(id: number) {
         this.get(id).count += 1;
+        this.missionAnnouncedSource.next();
     }
 
     decrease(id: number) {
         let product = this.get(id);
-        product.count -= 1;
-        if (product.count === 0) this.remove(product.id);
+        if ( --product.count == 0 ) this.remove(product.id);
+        this.missionAnnouncedSource.next();
     }
     
     getTotal() {
         this.itsTotal = 0;
-
         for (let product of this.products) {
             this.itsTotal += (product.price * product.count);
         }

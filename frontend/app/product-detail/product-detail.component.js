@@ -11,13 +11,12 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 var core_1 = require('@angular/core');
 var router_1 = require('@angular/router');
 var search_service_1 = require('../search.service');
-var bagview_component_1 = require('../bagview/bagview.component');
 var shoppingcart_service_1 = require('../shoppingcart.service');
 var ProductDetailComponent = (function () {
-    function ProductDetailComponent(route, searchService, shoppingcartService, elementRef, renderer) {
+    function ProductDetailComponent(route, searchService, shoppingCartService, elementRef, renderer) {
         this.route = route;
         this.searchService = searchService;
-        this.shoppingcartService = shoppingcartService;
+        this.shoppingCartService = shoppingCartService;
         this.elementRef = elementRef;
         this.renderer = renderer;
         this.CLIENT_X = 0;
@@ -31,14 +30,13 @@ var ProductDetailComponent = (function () {
                 return true;
             var id = +params['id'];
             _this.searchService.getProduct(id).then(function (product) {
-                if (_this.shoppingcartService.contains(product.id)) {
-                    _this.product = _this.shoppingcartService.get(product.id);
+                if (_this.shoppingCartService.contains(product.id)) {
+                    _this.product = _this.shoppingCartService.get(product.id);
                     _this.product.snapshots = product.snapshots;
-                    _this.full = true;
                 }
                 else {
                     _this.product = product;
-                    _this.full = false;
+                    _this.product.meta = product;
                 }
                 _this.NUMBER_OF_SHOTS = Object.keys(_this.product.snapshots).length;
                 // Загружаем 360view фотографии заменяя их строковое предстваление на Image объекты
@@ -48,7 +46,6 @@ var ProductDetailComponent = (function () {
                     img.src = _this.product.snapshots[i];
                     _this.product.snapshots[i] = img;
                 }
-                img = null;
                 // Ожидаем загрузки первого изображения canvas360 и инициализируем его
                 _this.renderer.listen(_this.product.snapshots[0], 'load', function (event) {
                     _this.canvas.setAttribute('width', _this.elementRef.nativeElement.offsetWidth);
@@ -65,28 +62,18 @@ var ProductDetailComponent = (function () {
         this.canvas = this.canvas.nativeElement;
         this.context = this.canvas.getContext('2d');
     };
-    ProductDetailComponent.prototype.addToCart = function () {
-        if (this.shoppingcartService.isEmpty())
-            this.bagview.show();
-        this.shoppingcartService.add(this.product);
-        this.bagview.recalculate();
-        this.full = true;
+    ProductDetailComponent.prototype.addToShoppingCart = function () {
+        this.shoppingCartService.add(this.product);
+        this.a = this.product.meta.step * 1;
     };
     ProductDetailComponent.prototype.changeCount = function () {
     };
     ProductDetailComponent.prototype.increase = function () {
-        this.product.count += 1;
-        this.bagview.recalculate();
+        this.shoppingCartService.increase(this.product.id);
+        this.a = this.product.meta.step * this.product.count;
     };
     ProductDetailComponent.prototype.decrease = function () {
-        this.product.count -= 1;
-        this.bagview.recalculate();
-        if (this.product.count == 0) {
-            this.shoppingcartService.remove(this.product.id);
-            this.full = false;
-        }
-        if (this.shoppingcartService.isEmpty())
-            this.bagview.hide();
+        this.shoppingCartService.decrease(this.product.id);
     };
     ProductDetailComponent.prototype.canvasMouseDown = function () {
         var _this = this;
@@ -110,10 +97,6 @@ var ProductDetailComponent = (function () {
             this.canvasMouseDownListenFunc();
     };
     __decorate([
-        core_1.ViewChild(bagview_component_1.BagviewComponent), 
-        __metadata('design:type', bagview_component_1.BagviewComponent)
-    ], ProductDetailComponent.prototype, "bagview", void 0);
-    __decorate([
         core_1.ViewChild('canvas'), 
         __metadata('design:type', Object)
     ], ProductDetailComponent.prototype, "canvas", void 0);
@@ -123,8 +106,7 @@ var ProductDetailComponent = (function () {
             selector: 'my-product-detail',
             templateUrl: 'product-detail.component.html',
             styleUrls: ['product-detail.component.css'],
-            providers: [search_service_1.SearchService],
-            directives: [bagview_component_1.BagviewComponent]
+            providers: [search_service_1.SearchService]
         }), 
         __metadata('design:paramtypes', [router_1.ActivatedRoute, search_service_1.SearchService, shoppingcart_service_1.ShoppingCartService, core_1.ElementRef, core_1.Renderer])
     ], ProductDetailComponent);

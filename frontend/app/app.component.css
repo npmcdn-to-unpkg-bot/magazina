@@ -1,8 +1,26 @@
+#content {
+
+
+}
+
+.content {
+    max-width: 1280px;
+    padding: 0 20px;
+    box-sizing: border-box;
+    margin: 0 auto;
+
+}
+
+
+
+
 #header {
-    padding: 16px 0 8px 0;
+    padding: 4px 0;
     margin-bottom: 24px;
     display: flex;
-    background: linear-gradient(to bottom, #EEE, #FFF);
+    @background: #EEE;
+    @box-shadow: 0 2px 2px #CCC;
+    @background: linear-gradient(to bottom, #EEE, #FFF);
 }
 
 #header > * {
@@ -10,7 +28,7 @@
 }
 
 .a {
-    flex: auto;
+    flex: 1;
 }
 
 .b {
@@ -23,6 +41,13 @@
 .c {
     width: 672px;
     position: relative;
+}
+
+.btn {
+    width: 36px;
+    height: 100%;
+    background-repeat: no-repeat;
+    background-position: center;
 }
 
 .c span {
@@ -45,20 +70,24 @@
     margin-right: 10px;
 }
 
-.account, .cart {
+.account{
     margin-left: 10px;
 }
 
+.cart.active {
+    background: red;
+}
+
 #search {
-    border: 2px solid #4285F4;
+border: 2px solid #4285F4;
 padding: 0 16px;
 box-sizing: border-box;
 font-size: 1em;
-height: 44px;
+height: 48px;
 @box-shadow: 0 0 2px #CCC;
 width: 100%;
 margin: auto;
-border-radius: 22px;
+border-radius: 3px;
 }
 
 .wiki {
@@ -71,6 +100,7 @@ border-radius: 22px;
 
 .cart {
     background-image: url("/static/img/ic_shopping_cart_black_36px.svg");
+    cursor: pointer;
 }
 
 .account {

@@ -3,41 +3,41 @@
   <a [routerLink]="['/dashboard']" routerLinkActive="active">Dashboard</a>
   <a [routerLink]="['/heroes']" routerLinkActive="active">Heroes</a>
 </nav>-->
-<div id="header">
-  <a title="Главная"    class="a" href="/"></a>
-  <a title="Справка"    class="b wiki" [routerLink]="['/wiki']"></a>
-  <a title="Обратиться" class="b chat" href="/"></a>
 
-  <div class="c">
-    <input id="search" #searchInputElement type="text" autofocus>
-    <input type="button">
-    <div class="search--field-helper">
-        <i>Например: </i><a href="">Грибы</a>
+
+<div id="content" [@componentState]="componentState" >
+
+  <div id="header">
+    <a title="Главная"    class="a" href="/"></a>
+    <a title="Справка"    class="b wiki" [routerLink]="['/wiki']"></a>
+    <a title="Обратиться" class="b chat" href="/"></a>
+
+    <div class="c">
+      <input id="search" #searchInputElement type="text" autofocus>
+      <input type="button">
+      <span (click)="startSearchLabel(searchInputElement)" [class.hidden]="itsStartSearchLabel">НАЧНИТЕ ПОИСК ОТСЮДА...</span>
     </div>
-    <span (click)="startSearchLabel(searchInputElement)" [class.hidden]="itsStartSearchLabel">НАЧНИТЕ ПОИСК ОТСЮДА...</span>
+
+    <a title="Главная"    class="b account" href="/"></a>
+    <div class="b"></div>
+    <div class="a">
+      <div title="Главная" class="btn cart" [class.active]="bagviewSwitch" (click)="showHideShoppingCart()"></div>
+    </div>
   </div>
 
-  <a title="Главная"    class="b account" href="/"></a>
-  <a title="Главная"    class="b cart" href="/"></a>
-  <div class="a"></div>
-</div>
+<div class="search--field-helper">
+          <i>Например: </i><a href="">Грибы</a>
+      </div>
 
 
-<div id="wrapper">
-
-
-
-
-
-
-<div id="goBack" (click)="goBack()"></div>
-
-
-
-<router-outlet></router-outlet>
-
+  <div class="content">
+    <div id="goBack" (click)="goBack()"></div>
+    <router-outlet></router-outlet>
+  </div>
 
 </div>
 
 
 <bagview></bagview>
+
+

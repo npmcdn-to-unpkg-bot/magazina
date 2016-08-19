@@ -9,3 +9,5 @@ import { LocalStorageSubscriber } from 'angular2-localstorage/LocalStorageEmitte
 var appPromise = platformBrowserDynamic().bootstrapModule(AppModule);
 
 LocalStorageSubscriber(appPromise);
+
+//platformBrowserDynamic().bootstrapModule(AppModule);

@@ -1,17 +1,13 @@
 html, body {height: 100%}
 body {
     font: normal 14px Arial;
+    background: #EEE;
 }
 a {
     text-decoration: none;
 }
 
-#wrapper {
-    position: absolute;
-    right: 300px;
-    left: 300px;
-    padding: 0 20px;
-}
+
 
 
 

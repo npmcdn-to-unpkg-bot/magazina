@@ -9,36 +9,40 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 var core_1 = require('@angular/core');
-var router_1 = require('@angular/router');
-var router_2 = require('@angular/router');
 require('rxjs/add/operator/toPromise');
+var router_1 = require('@angular/router');
+var ng2_tooltip_1 = require("ng2-tooltip");
 var shoppingcart_service_1 = require('../shoppingcart.service');
 var BagviewComponent = (function () {
     function BagviewComponent(router, shoppingcartService) {
+        var _this = this;
         this.router = router;
         this.shoppingcartService = shoppingcartService;
+        this.shoppingcartService.productAdded$.subscribe(function () {
+            _this.products = _this.shoppingcartService.getProducts(); // оптимизировать
+            if (_this.shoppingcartService.isEmpty())
+                _this.hidden = true;
+            else
+                _this.hidden = false;
+            _this.recalculate();
+        });
     }
     BagviewComponent.prototype.ngAfterViewInit = function () {
-        $(".nano").nanoScroller();
+        //$(".nano").nanoScroller();
+        console.log('+', $(".nano"));
+    };
+    BagviewComponent.prototype.ngAfterContentInit = function () {
+        console.log('+', $(".nano"));
     };
     BagviewComponent.prototype.ngOnInit = function () {
         this.products = this.shoppingcartService.getProducts();
-        this.shoppingCartIsNotEmpty = !this.shoppingcartService.isEmpty();
         this.recalculate();
-    };
-    BagviewComponent.prototype.show = function () {
-        this.shoppingCartIsNotEmpty = true;
-    };
-    BagviewComponent.prototype.hide = function () {
-        this.shoppingCartIsNotEmpty = false;
+        this.hidden = this.shoppingcartService.isEmpty();
     };
     BagviewComponent.prototype.remove = function (product, event) {
         event.stopPropagation();
         this.shoppingcartService.remove(product.id);
         this.products = this.shoppingcartService.getProducts();
-        if (this.shoppingcartService.isEmpty()) {
-            this.shoppingCartIsNotEmpty = false;
-        }
     };
     BagviewComponent.prototype.gotoDetail = function (product) {
         this.router.navigate(['/sku', product.id]);
@@ -47,16 +51,20 @@ var BagviewComponent = (function () {
         this.itsTotal = this.shoppingcartService.getTotal();
     };
     BagviewComponent.prototype.showHideScrollbar = function (event) {
-        var wrapper = document.getElementById("wrapper");
+        var wrapper = document.getElementById("content");
         if (event.type == 'mouseover' && scrollbarVisible('html')) {
             document.body.style.overflow = "hidden";
-            wrapper.style.right = (wrapper.offsetLeft + getScrollbarWidth()) + "px";
+            wrapper.style.transition = "none";
+            event.currentTarget.style.transition = "none";
+            wrapper.style.marginRight = 260 + getScrollbarWidth() + "px";
             event.currentTarget.style.right = getScrollbarWidth() + "px";
         }
         else {
-            document.body.style.overflow = "inherit";
-            wrapper.style.right = wrapper.offsetLeft + "px";
-            event.target.style.right = "8px";
+            document.body.style.overflow = null;
+            wrapper.style.marginRight = null;
+            event.target.style.right = null;
+            wrapper.style.transition = null;
+            event.currentTarget.style.transition = null;
         }
     };
     BagviewComponent = __decorate([
@@ -65,10 +73,15 @@ var BagviewComponent = (function () {
             selector: 'bagview',
             templateUrl: 'bagview.component.html',
             styleUrls: ['bagview.component.css'],
-            providers: [],
-            directives: [router_1.ROUTER_DIRECTIVES],
+            directives: [ng2_tooltip_1.TOOLTIP_DIRECTIVES],
+            animations: [
+                core_1.trigger('bagiewState', [
+                    core_1.transition('void => *', core_1.animate(100, core_1.style({ transform: 'translateX(0)' }))),
+                    core_1.transition('* => void', core_1.animate(100, core_1.style({ transform: 'translateX(100%)' }))),
+                ])
+            ]
         }), 
-        __metadata('design:paramtypes', [router_2.Router, shoppingcart_service_1.ShoppingCartService])
+        __metadata('design:paramtypes', [router_1.Router, shoppingcart_service_1.ShoppingCartService])
     ], BagviewComponent);
     return BagviewComponent;
 }());

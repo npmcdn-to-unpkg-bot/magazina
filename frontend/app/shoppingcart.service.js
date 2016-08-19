@@ -9,10 +9,12 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 var core_1 = require('@angular/core');
-var WebStorage_1 = require('angular2-localstorage/WebStorage');
+var Subject_1 = require('rxjs/Subject');
 var ShoppingCartService = (function () {
     function ShoppingCartService() {
         this.products = [];
+        this.missionAnnouncedSource = new Subject_1.Subject();
+        this.productAdded$ = this.missionAnnouncedSource.asObservable();
     }
     ShoppingCartService.prototype.getProducts = function () {
         return this.products;
@@ -24,15 +26,14 @@ var ShoppingCartService = (function () {
         }
         product.count = 1;
         this.products.push(product);
+        this.missionAnnouncedSource.next();
+        console.log(this.missionAnnouncedSource);
     };
     ShoppingCartService.prototype.remove = function (id) {
         this.products = this.products.filter(function (h) { return h.id !== id; });
-        this.recalculate();
     };
     ShoppingCartService.prototype.isEmpty = function () {
         return this.products.length === 0 ? true : false;
-    };
-    ShoppingCartService.prototype.recalculate = function () {
     };
     ShoppingCartService.prototype.get = function (id) {
         return this.products.find(function (product) { return product.id === id; });
@@ -40,17 +41,15 @@ var ShoppingCartService = (function () {
     ShoppingCartService.prototype.contains = function (id) {
         return this.products.find(function (product) { return product.id === id; }) ? true : false;
     };
-    // count() {
-    //     return this.products.length;
-    // }
     ShoppingCartService.prototype.increase = function (id) {
         this.get(id).count += 1;
+        this.missionAnnouncedSource.next();
     };
     ShoppingCartService.prototype.decrease = function (id) {
         var product = this.get(id);
-        product.count -= 1;
-        if (product.count === 0)
+        if (--product.count == 0)
             this.remove(product.id);
+        this.missionAnnouncedSource.next();
     };
     ShoppingCartService.prototype.getTotal = function () {
         this.itsTotal = 0;
@@ -60,10 +59,6 @@ var ShoppingCartService = (function () {
         }
         return this.itsTotal;
     };
-    __decorate([
-        WebStorage_1.LocalStorage(), 
-        __metadata('design:type', Array)
-    ], ShoppingCartService.prototype, "products", void 0);
     ShoppingCartService = __decorate([
         core_1.Injectable(), 
         __metadata('design:paramtypes', [])

@@ -1,16 +1,19 @@
 <div *ngIf="product">
   {{product.name}}
-  <div *ngIf="full" class="regulator">
+
+  <div *ngIf="product.count" class="regulator">
     <button (click)="decrease()">-</button>
-    <input (keyup)="changeCount()" type="text" value="{{product.count}}">
+    <div (keyup)="changeCount()">{{product.count | measureUnit: product.meta.step}}</div>
     <button (click)="increase()">+</button>
   </div>
-  <div *ngIf="!full">
-    <button (click)="addToCart()">Добавить в корзину</button>
+
+  <div *ngIf="!product.count">
+    <button (click)="addToShoppingCart()">Добавить в корзину</button>
   </div>
 
   <p>Изображение и цвет представленного товара может незначительно отличаться от оригинала продукции</p>
 
 </div>
+
 <canvas #canvas (mousedown)="canvasMouseDown()" (mouseup)="canvasMouseUp()" (mouseleave)="canvasMouseUp()"></canvas>
-<bagview></bagview>
+

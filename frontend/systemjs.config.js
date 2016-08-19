@@ -8,13 +8,15 @@
     'app':                        'static/app', // 'dist',
     '@angular':                   'static/node_modules/@angular',
     'rxjs':                       'static/node_modules/rxjs',
-    'angular2-localstorage':      'static/node_modules/angular2-localstorage'
+    'angular2-localstorage':      'static/node_modules/angular2-localstorage',
+    'ng2-tooltip':                'static/node_modules/ng2-tooltip'
   };
   // packages tells the System loader how to load when no filename and/or no extension
   var packages = {
     'app':                        { main: 'main.js',  defaultExtension: 'js' },
     'rxjs':                       { defaultExtension: 'js' },
-    'angular2-localstorage':      { defaultExtension: 'js' }
+    'angular2-localstorage':      { defaultExtension: 'js' },
+    "ng2-tooltip":                { main: "index.js", defaultExtension: "js" }
   };
   var ngPackageNames = [
     'common',

@@ -6,7 +6,7 @@ import { LocalStorageService } from 'angular2-localstorage/LocalStorageEmitter';
 import { AppComponent }  from './app.component';
 import { routing } from './app.routing'
 import { ShoppingCartService } from './shoppingcart.service';
-
+import { MeasureUnitPipe } from './measure-unit.pipe';
 
 @NgModule({
   imports: [
@@ -14,10 +14,13 @@ import { ShoppingCartService } from './shoppingcart.service';
     routing,
     HttpModule
   ],
-  declarations: [ AppComponent ],
+  declarations: [
+    AppComponent,
+    MeasureUnitPipe
+  ],
   providers: [
-      LocalStorageService,
-      ShoppingCartService
+    LocalStorageService,
+    ShoppingCartService
   ],
   bootstrap: [ AppComponent ]
 })

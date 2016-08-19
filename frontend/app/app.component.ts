@@ -1,8 +1,18 @@
-import { Component } from '@angular/core';
-import { ROUTER_DIRECTIVES } from '@angular/router';
-import { HeroService } from './hero.service';
-import { BagviewComponent } from './bagview/bagview.component';
+import {
+  Component,
+  OnInit,
+  ViewChild,
+  trigger,
+  state,
+  style,
+  transition,
+  animate
+} from '@angular/core';
+
 import './rxjs-extensions';
+
+import { BagviewComponent } from './bagview/bagview.component';
+import { ShoppingCartService } from './shoppingcart.service';
 
 
 @Component({
@@ -10,22 +20,46 @@ import './rxjs-extensions';
   selector: 'my-app',
   templateUrl: 'app.component.html',
   styleUrls: ['app.component.css'],
-  directives: [ROUTER_DIRECTIVES, BagviewComponent],
-  providers: []
+  directives: [BagviewComponent],
+  animations: [
+    trigger('componentState', [
+      state('in-one',   style({ marginRight: '0px'   })),
+      state('in-twain', style({ marginRight: '260px' })),
+      transition('in-one => in-twain', animate(100)),
+      transition('in-twain => in-one', animate(100)),
+    ])
+  ]
 })
 
 
-export class AppComponent {
-    itsStartSearchLabel: boolean = false;
+export class AppComponent implements OnInit {
+  @ViewChild(BagviewComponent) bagview: BagviewComponent;
 
-    constructor() {}
+  itsStartSearchLabel: boolean = false;
+  componentState: string;
 
-    goBack() {
-        window.history.back();
-    }
+  constructor(private shoppingcartService: ShoppingCartService) {
+    this.shoppingcartService.productAdded$.subscribe( () => {
+      if( this.shoppingcartService.isEmpty() ) this.componentState = 'in-one';
+      else this.componentState = 'in-twain';
+    });
+  }
 
-    startSearchLabel(inputElement) {
-        inputElement.focus();
-        this.itsStartSearchLabel = true;
-    }
+  ngOnInit() {
+    this.componentState = (this.shoppingcartService.isEmpty() ? 'in-one' : 'in-twain');
+  }
+  
+  goBack() {
+    window.history.back();
+  }
+
+  startSearchLabel(inputElement) {
+    inputElement.focus();
+    this.itsStartSearchLabel = true;
+  }
+
+  showHideShoppingCart() {
+    this.bagviewSwitch = !this.bagviewSwitch;
+    this.bagview.bagviewSwitch = !this.bagview.bagviewSwitch;
+  }
 }

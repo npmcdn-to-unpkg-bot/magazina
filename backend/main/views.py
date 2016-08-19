@@ -58,8 +58,10 @@ def product_detail(request, id):
     s = {
         'id': id,
         'name': "Курица",
-        'photo':  '/media/3117296H.jpg',
+        'photo': '/media/3117296H.jpg',
         'price': 200,
+        'unit': 'кг.',
+        'step': '100',
         'snapshots': {
             '0':  "http://127.0.0.1:8000/media/rucksack_normal_001.jpg",
             '1':  "http://127.0.0.1:8000/media/rucksack_normal_002.jpg",
